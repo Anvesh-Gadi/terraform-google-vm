@@ -1,26 +1,29 @@
-/**
- * Copyright 2018 Google LLC
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
-output "instances_self_links" {
-  description = "List of self-links for compute instances"
-  value       = module.compute_instance.instances_self_links
+output "instance_name" {
+  description = "The name of the Google Compute Engine instance."
+  value       = google_compute_instance.instance-20240828-181806.name
 }
 
-output "available_zones" {
-  description = "List of available zones in region"
-  value       = module.compute_instance.available_zones
+output "instance_id" {
+  description = "The unique ID of the Google Compute Engine instance."
+  value       = google_compute_instance.instance-20240828-181806.id
 }
 
+output "instance_self_link" {
+  description = "The self-link URL of the Google Compute Engine instance."
+  value       = google_compute_instance.instance-20240828-181806.self_link
+}
+
+output "instance_public_ip" {
+  description = "The public IP address of the Google Compute Engine instance."
+  value       = google_compute_instance.instance-20240828-181806.network_interface[0].access_config[0].nat_ip
+}
+
+output "instance_zone" {
+  description = "The zone where the Google Compute Engine instance is located."
+  value       = google_compute_instance.instance-20240828-181806.zone
+}
+
+output "instance_status" {
+  description = "The status of the Google Compute Engine instance."
+  value       = google_compute_instance.instance-20240828-181806.status
+}
