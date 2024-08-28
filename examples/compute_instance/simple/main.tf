@@ -1,7 +1,10 @@
 # This code is compatible with Terraform 4.25.0 and versions that are backwards compatible to 4.25.0.
 # For information about validating this Terraform code, see https://developer.hashicorp.com/terraform/tutorials/gcp-get-started/google-cloud-platform-build#format-and-validate-the-configuration
-
 resource "google_compute_instance" "instance-20240828-181806" {
+  project      = var.project_id  # Add this line
+  name         = testvm#var.instance_name
+  machine_type = var.machine_type
+  zone         = var.zone
   boot_disk {
     auto_delete = true
     device_name = "instance-20240828-181806"
