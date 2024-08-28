@@ -32,3 +32,4 @@ output "instance_boot_disk_image" {
   description = "The image used for the boot disk of the Google Compute Engine instance."
   value       = google_compute_instance.instance-20240828-181806.boot_disk[0].initialize_params[0].image
 }
+
