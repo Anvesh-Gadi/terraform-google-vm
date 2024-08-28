@@ -2,7 +2,7 @@
 # For information about validating this Terraform code, see https://developer.hashicorp.com/terraform/tutorials/gcp-get-started/google-cloud-platform-build#format-and-validate-the-configuration
 resource "google_compute_instance" "instance-20240828-181806" {
   project      = var.project_id  # Add this line
-  name         = testvm#var.instance_name
+  name         = var.instance_name
   machine_type = var.machine_type
   zone         = var.zone
   boot_disk {
