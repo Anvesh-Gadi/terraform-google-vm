@@ -1,45 +1,60 @@
-/**
- * Copyright 2018 Google LLC
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
+# This code is compatible with Terraform 4.25.0 and versions that are backwards compatible to 4.25.0.
+# For information about validating this Terraform code, see https://developer.hashicorp.com/terraform/tutorials/gcp-get-started/google-cloud-platform-build#format-and-validate-the-configuration
 
-module "instance_template" {
-  source  = "terraform-google-modules/vm/google//modules/instance_template"
-  version = "~> 0.14"
+resource "google_compute_instance" "instance-20240828-181806" {
+  boot_disk {
+    auto_delete = true
+    device_name = "instance-20240828-181806"
 
-  region          = var.region
-  project_id      = var.project_id
-  subnetwork      = var.subnetwork
-  service_account = var.service_account
-}
+    initialize_params {
+      image = "projects/debian-cloud/global/images/debian-12-bookworm-v20240815"
+      size  = 10
+      type  = "pd-balanced"
+    }
 
-module "compute_instance" {
-  source  = "terraform-google-modules/vm/google//modules/compute_instance"
-  version = "~> 0.14"
+    mode = "READ_WRITE"
+  }
 
-  region              = var.region
-  zone                = var.zone
-  subnetwork          = var.subnetwork
-  num_instances       = var.num_instances
-  hostname            = "instance-simple"
-  instance_template   = module.instance_template.self_link
+  can_ip_forward      = false
   deletion_protection = false
+  enable_display      = false
 
-  access_config = [{
-    nat_ip       = var.nat_ip
-    network_tier = var.network_tier
-  }, ]
+  labels = {
+    goog-ec-src = "vm_add-tf"
+  }
+
+  machine_type = "e2-medium"
+  name         = "instance-20240828-181806"
+
+  network_interface {
+    access_config {
+      network_tier = "PREMIUM"
+    }
+
+    queue_count = 0
+    stack_type  = "IPV4_ONLY"
+    subnetwork  = "projects/linear-elf-433407-q0/regions/us-central1/subnetworks/default"
+  }
+
+  scheduling {
+    automatic_restart   = true
+    on_host_maintenance = "MIGRATE"
+    preemptible         = false
+    provisioning_model  = "STANDARD"
+  }
+
+  service_account {
+    email  = "467144775560-compute@developer.gserviceaccount.com"
+    scopes = ["https://www.googleapis.com/auth/devstorage.read_only", "https://www.googleapis.com/auth/logging.write", "https://www.googleapis.com/auth/monitoring.write", "https://www.googleapis.com/auth/service.management.readonly", "https://www.googleapis.com/auth/servicecontrol", "https://www.googleapis.com/auth/trace.append"]
+  }
+
+  shielded_instance_config {
+    enable_integrity_monitoring = true
+    enable_secure_boot          = false
+    enable_vtpm                 = true
+  }
+
+  zone = "us-central1-c"
 }
 terraform {
   backend "http" {
