@@ -1,64 +1,117 @@
-/**
- * Copyright 2019 Google LLC
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
+# variables.tf
 
-
-
-variable "project_id" {
-  description = "The GCP project to use for integration tests"
+variable "instance_name" {
+  description = "The name of the Google Compute Engine instance."
   type        = string
-  default     = "linear-elf-433407-q0"
+  default     = "instance-20240828-181806"
 }
 
-variable "region" {
-  description = "The GCP region to create and test resources in"
+variable "boot_disk_image" {
+  description = "The image used for the boot disk."
   type        = string
-  default     = "us-central1"
+  default     = "projects/debian-cloud/global/images/debian-12-bookworm-v20240815"
+}
+
+variable "boot_disk_size" {
+  description = "The size of the boot disk in GB."
+  type        = number
+  default     = 10
+}
+
+variable "boot_disk_type" {
+  description = "The type of the boot disk."
+  type        = string
+  default     = "pd-balanced"
+}
+
+variable "machine_type" {
+  description = "The machine type for the Google Compute Engine instance."
+  type        = string
+  default     = "e2-medium"
+}
+
+variable "network_subnetwork" {
+  description = "The subnetwork to which the instance is connected."
+  type        = string
+  default     = "projects/linear-elf-433407-q0/regions/us-central1/subnetworks/default"
+}
+
+variable "service_account_email" {
+  description = "The email of the service account associated with the instance."
+  type        = string
+  default     = "467144775560-compute@developer.gserviceaccount.com"
 }
 
 variable "zone" {
-  description = "The GCP zone to create resources in"
+  description = "The zone where the Google Compute Engine instance is located."
   type        = string
-  default     = null
+  default     = "us-central1-c"
 }
 
-variable "subnetwork" {
-  description = "The subnetwork selflink to host the compute instances in"
-  default    = "default"
+variable "instance_labels" {
+  description = "A map of labels to assign to the instance."
+  type        = map(string)
+  default     = {
+    goog-ec-src = "vm_add-tf"
+  }
 }
 
-variable "num_instances" {
-  description = "Number of instances to create"
-  default = "1"
+variable "can_ip_forward" {
+  description = "Whether the instance can forward IP packets."
+  type        = bool
+  default     = false
 }
 
-variable "nat_ip" {
-  description = "Public ip address"
-  default     = null
+variable "deletion_protection" {
+  description = "Whether to enable deletion protection on the instance."
+  type        = bool
+  default     = false
 }
 
-variable "network_tier" {
-  description = "Network network_tier"
-  default     = "PREMIUM"
+variable "enable_display" {
+  description = "Whether to enable display on the instance."
+  type        = bool
+  default     = false
 }
 
-variable "service_account" {
-  default = null
-  type = object({
-    email  = string,
-    scopes = set(string)
-  })
-  description = "Service account to attach to the instance. See https://www.terraform.io/docs/providers/google/r/compute_instance_template#service_account."
+variable "automatic_restart" {
+  description = "Whether to automatically restart the instance when it is terminated."
+  type        = bool
+  default     = true
+}
+
+variable "on_host_maintenance" {
+  description = "The maintenance behavior for the instance."
+  type        = string
+  default     = "MIGRATE"
+}
+
+variable "preemptible" {
+  description = "Whether the instance is preemptible."
+  type        = bool
+  default     = false
+}
+
+variable "provisioning_model" {
+  description = "The provisioning model for the instance."
+  type        = string
+  default     = "STANDARD"
+}
+
+variable "shielded_integrity_monitoring" {
+  description = "Whether to enable integrity monitoring for Shielded VM."
+  type        = bool
+  default     = true
+}
+
+variable "shielded_secure_boot" {
+  description = "Whether to enable secure boot for Shielded VM."
+  type        = bool
+  default     = false
+}
+
+variable "shielded_vtpm" {
+  description = "Whether to enable vTPM for Shielded VM."
+  type        = bool
+  default     = true
 }
