@@ -23,7 +23,12 @@ output "instance_zone" {
   value       = google_compute_instance.instance-20240828-181806.zone
 }
 
-output "instance_status" {
-  description = "The status of the Google Compute Engine instance."
-  value       = google_compute_instance.instance-20240828-181806.status
+output "instance_machine_type" {
+  description = "The machine type of the Google Compute Engine instance."
+  value       = google_compute_instance.instance-20240828-181806.machine_type
+}
+
+output "instance_boot_disk_image" {
+  description = "The image used for the boot disk of the Google Compute Engine instance."
+  value       = google_compute_instance.instance-20240828-181806.boot_disk[0].initialize_params[0].image
 }
