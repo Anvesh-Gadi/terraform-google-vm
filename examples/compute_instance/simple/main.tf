@@ -60,9 +60,9 @@ terraform {
   backend "http" {
     address = "https://app.harness.io/gateway/iacm/api/orgs/default/projects/ContinuousIntegration/workspaces/prasannaworkspace/terraform-backend?accountIdentifier=ucHySz2jQKKWQweZdXyCog"
     username = "harness"
-    lock_address = "https://https://app.harness.io/gateway/iacm/api/orgs/default/projects/ContinuousIntegration/workspaces/prasannaworkspace/terraform-backend/lock?accountIdentifier=ucHySz2jQKKWQweZdXyCog"
+    lock_address = "https://app.harness.io/gateway/iacm/api/orgs/default/projects/ContinuousIntegration/workspaces/prasannaworkspace/terraform-backend/lock?accountIdentifier=ucHySz2jQKKWQweZdXyCog"
     lock_method = "POST"
-    unlock_address = "https://https://app.harness.io/gateway/iacm/api/orgs/default/projects/ContinuousIntegration/workspaces/prasannaworkspace/terraform-backend/lock?accountIdentifier=ucHySz2jQKKWQweZdXyCog"
+    unlock_address = "https://app.harness.io/gateway/iacm/api/orgs/default/projects/ContinuousIntegration/workspaces/prasannaworkspace/terraform-backend/lock?accountIdentifier=ucHySz2jQKKWQweZdXyCog"
     unlock_method = "DELETE"
   }
 }
