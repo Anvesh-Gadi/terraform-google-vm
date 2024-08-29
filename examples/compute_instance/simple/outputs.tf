@@ -1,35 +1,31 @@
-output "instance_name" {
-  description = "The name of the Google Compute Engine instance."
-  value       = google_compute_instance.instance-20240829-112235.name
-}
+# outputs.tf
 
-output "instance_id" {
-  description = "The unique ID of the Google Compute Engine instance."
-  value       = google_compute_instance.instance-20240829-112235.id
+output "instance_name" {
+  description = "The name of the compute instance."
+  value       = google_compute_instance.instance.name
 }
 
 output "instance_self_link" {
-  description = "The self-link URL of the Google Compute Engine instance."
-  value       = google_compute_instance.instance-20240829-112235.self_link
-}
-
-output "instance_public_ip" {
-  description = "The public IP address of the Google Compute Engine instance."
-  value       = google_compute_instance.instance-20240829-112235.network_interface[0].access_config[0].nat_ip
+  description = "The self link of the compute instance."
+  value       = google_compute_instance.instance.self_link
 }
 
 output "instance_zone" {
-  description = "The zone where the Google Compute Engine instance is located."
-  value       = google_compute_instance.instance-20240829-112235.zone
+  description = "The zone where the compute instance is located."
+  value       = google_compute_instance.instance.zone
 }
 
 output "instance_machine_type" {
-  description = "The machine type of the Google Compute Engine instance."
-  value       = google_compute_instance.instance-20240829-112235.machine_type
+  description = "The machine type of the compute instance."
+  value       = google_compute_instance.instance.machine_type
 }
 
-output "instance_boot_disk_image" {
-  description = "The image used for the boot disk of the Google Compute Engine instance."
-  value       = google_compute_instance.instance-20240829-112235.boot_disk[0].initialize_params[0].image
+output "instance_public_ip" {
+  description = "The public IP address of the compute instance, if available."
+  value       = google_compute_instance.instance.network_interface[0].access_config[0].nat_ip
 }
 
+output "instance_private_ip" {
+  description = "The private IP address of the compute instance."
+  value       = google_compute_instance.instance.network_interface[0].network_ip
+}
